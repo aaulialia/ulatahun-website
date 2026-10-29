@@ -17,7 +17,10 @@
 html,body{height:100%}
 body{
   font-family:var(--serif);color:var(--foam);overflow-x:hidden;
-  background:radial-gradient(120% 80% at 50% 0%,#1b43b8 0%,var(--deep) 40%,var(--night) 100%) fixed;
+  background:
+    radial-gradient(50% 55% at 12% 18%,rgba(113,81,255,.42),transparent 75%),
+    radial-gradient(42% 48% at 88% 78%,rgba(37,190,255,.22),transparent 75%),
+    radial-gradient(120% 80% at 50% 0%,#254cc0 0%,var(--deep) 42%,var(--night) 100%) fixed;
 }
 #stars{position:fixed;inset:0;pointer-events:none;z-index:0}
 #fx{position:fixed;inset:0;pointer-events:none;z-index:5}
@@ -26,28 +29,46 @@ body{
   flex-direction:column;align-items:center;justify-content:center;text-align:center;
   padding:32px 22px;
 }
+.stage::before{
+  content:"";position:absolute;z-index:0;inset:24px auto;width:min(760px,calc(100vw - 28px));
+  border:1px solid rgba(220,237,255,.18);border-radius:36px;
+  background:linear-gradient(145deg,rgba(255,255,255,.10),rgba(255,255,255,.025) 55%,rgba(130,170,255,.07));
+  box-shadow:inset 0 1px rgba(255,255,255,.12),0 28px 90px rgba(2,9,38,.22);
+  backdrop-filter:blur(8px);pointer-events:none;
+}
+.stage>*{position:relative;z-index:1}
 .stage.on{display:flex;animation:in .9s ease both}
 @keyframes in{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
 
-h1{font-size:clamp(2.4rem,9vw,4.8rem);line-height:1.05;font-weight:700;letter-spacing:-.01em}
-h2{font-size:clamp(1.6rem,6vw,2.6rem);line-height:1.2;font-weight:500;max-width:18ch}
+h1{font-size:clamp(2.4rem,9vw,4.8rem);line-height:1.05;font-weight:700;letter-spacing:-.01em;text-shadow:0 6px 32px rgba(152,196,255,.32)}
+h2{font-size:clamp(1.6rem,6vw,2.6rem);line-height:1.2;font-weight:500;max-width:18ch;text-shadow:0 4px 24px rgba(152,196,255,.24)}
+.eyebrow{
+  margin-bottom:18px;padding:8px 14px;border:1px solid rgba(255,217,138,.42);border-radius:999px;
+  background:rgba(255,217,138,.09);color:var(--gold);font:700 .72rem/1 var(--serif);
+  letter-spacing:.16em;text-transform:uppercase;
+}
 .name{font-family:var(--hand);font-size:clamp(2.4rem,10vw,4.4rem);color:var(--gold);margin-top:10px}
 p.sub{margin-top:18px;max-width:34ch;font-size:1.1rem;line-height:1.6;color:var(--ice)}
 
 button.btn{
-  margin-top:34px;font:inherit;font-size:1.05rem;font-weight:500;color:var(--night);
-  background:var(--foam);border:0;border-radius:999px;padding:14px 30px;cursor:pointer;
-  box-shadow:0 0 0 0 rgba(207,227,255,.6);animation:pulse 2.4s infinite;transition:transform .2s;
+  margin-top:34px;font:inherit;font-size:1.05rem;font-weight:700;color:#172450;
+  background:linear-gradient(115deg,#fff3cb 0%,var(--gold) 48%,#ffe8ac 100%);
+  border:1px solid rgba(255,255,255,.72);border-radius:999px;padding:15px 32px;cursor:pointer;
+  box-shadow:0 10px 28px rgba(255,191,79,.2),0 0 0 0 rgba(255,217,138,.48);
+  animation:pulse 2.4s infinite;transition:transform .2s,box-shadow .2s;
 }
-button.btn:hover{transform:scale(1.05)}
+button.btn:hover{transform:translateY(-3px) scale(1.04);box-shadow:0 14px 34px rgba(255,191,79,.3)}
 button.btn:focus-visible,.cake-wrap:focus-visible,.env:focus-visible{outline:3px solid var(--gold);outline-offset:4px}
-@keyframes pulse{70%{box-shadow:0 0 0 16px rgba(207,227,255,0)}100%{box-shadow:0 0 0 0 rgba(207,227,255,0)}}
+@keyframes pulse{70%{box-shadow:0 10px 28px rgba(255,191,79,.2),0 0 0 15px rgba(255,217,138,0)}100%{box-shadow:0 10px 28px rgba(255,191,79,.2),0 0 0 0 rgba(255,217,138,0)}}
 
 /* hello */
 .moon{width:92px;height:92px;border-radius:50%;margin-bottom:26px;
   background:radial-gradient(circle at 35% 35%,#fff,#cfe3ff 60%,#8db6ff);
-  box-shadow:0 0 60px 12px rgba(120,170,255,.55);animation:float 5s ease-in-out infinite}
+  box-shadow:0 0 60px 12px rgba(120,170,255,.55);animation:float 5s ease-in-out infinite;position:relative}
+.moon::before{content:"";position:absolute;inset:-12px;border:1px solid rgba(207,227,255,.38);border-radius:50%;transform:rotate(-25deg) scaleY(.42)}
+.moon::after{content:"✦";position:absolute;right:-20px;top:-12px;color:var(--gold);font-size:1.35rem;text-shadow:0 0 18px rgba(255,217,138,.9);animation:twinkle 2s ease-in-out infinite}
 @keyframes float{50%{transform:translateY(-12px)}}
+@keyframes twinkle{50%{opacity:.45;transform:scale(.78) rotate(25deg)}}
 
 /* wish */
 .cake-wrap{background:none;border:0;cursor:pointer;margin:26px 0 8px;color:inherit}
@@ -73,8 +94,8 @@ button.btn:focus-visible,.cake-wrap:focus-visible,.env:focus-visible{outline:3px
 #paperWrap.show{display:block;animation:rise 1s ease both}
 @keyframes rise{from{opacity:0;transform:translateY(60px) scale(.94)}to{opacity:1;transform:none}}
 .paper{
-  background:linear-gradient(#f9fcff,#e8f1ff);color:#14275e;border-radius:6px;padding:34px 28px 30px;text-align:left;
-  box-shadow:0 24px 60px rgba(0,0,0,.45);position:relative;
+  background:linear-gradient(#f9fcff,#e8f1ff);background-color:#f9fcff;color:#244fc5;border:1px solid rgba(255,255,255,.85);border-radius:16px;padding:34px 28px 30px;text-align:left;
+  box-shadow:0 24px 60px rgba(0,0,0,.35),0 0 38px rgba(130,170,255,.12);position:relative;
   background-image:repeating-linear-gradient(transparent 0 35px,rgba(79,140,255,.18) 35px 36px);
 }
 .paper::before{content:"";position:absolute;left:18px;top:0;bottom:0;width:2px;background:rgba(255,120,140,.35)}
@@ -90,12 +111,42 @@ button.btn:focus-visible,.cake-wrap:focus-visible,.env:focus-visible{outline:3px
 .big{font-family:var(--hand);font-size:clamp(3.2rem,16vw,7rem);line-height:1;color:var(--foam);
   text-shadow:0 0 28px rgba(79,140,255,.9),0 0 60px rgba(79,140,255,.6);animation:glow 3s ease-in-out infinite alternate}
 @keyframes glow{from{text-shadow:0 0 18px rgba(79,140,255,.7)}to{text-shadow:0 0 40px rgba(130,180,255,1),0 0 90px rgba(79,140,255,.8)}}
+.final-cake{position:relative;width:min(270px,72vw);height:205px;margin:12px 0 0;border:0;background:none;color:inherit;cursor:pointer;animation:cakeFloat 3s ease-in-out infinite}
+.cake-plate{position:absolute;left:8%;right:8%;bottom:8px;height:18px;border-radius:50%;background:linear-gradient(#d7e9ff,#739ce5);box-shadow:0 10px 24px rgba(0,0,0,.24)}
+.cake-layer{position:absolute;left:16%;right:16%;bottom:24px;height:68px;border-radius:12px 12px 18px 18px;background:linear-gradient(110deg,#ffb6d2,#ffe2ee 48%,#ffb6d2);box-shadow:inset 0 -9px rgba(231,111,163,.22),0 9px 18px rgba(0,0,0,.16)}
+.cake-layer::before{content:"";position:absolute;top:0;left:0;right:0;height:18px;border-radius:50%;background:#fff0f6}
+.cake-layer::after{content:"";position:absolute;left:14%;right:14%;top:22px;height:30px;background:radial-gradient(circle,#fff 0 3px,transparent 4px) 0 0/28px 22px}
+.cake-top{position:absolute;left:24%;right:24%;bottom:88px;height:45px;border-radius:12px 12px 8px 8px;background:linear-gradient(110deg,#c7e4ff,#fff 50%,#b5d8ff);box-shadow:inset 0 -7px rgba(79,140,255,.13)}
+.cake-top::after{content:"";position:absolute;left:8%;right:8%;bottom:-10px;height:18px;border-radius:0 0 12px 12px;background:radial-gradient(ellipse at 50% 0,#fff 0 7px,transparent 8px) 0 0/26px 18px}
+.final-candle{position:absolute;z-index:2;left:calc(50% - 6px);bottom:128px;width:12px;height:43px;border-radius:4px;background:repeating-linear-gradient(135deg,#fff 0 7px,#ff8bb5 7px 12px);box-shadow:0 0 12px rgba(255,255,255,.28)}
+.final-flame{position:absolute;left:50%;top:-27px;width:19px;height:27px;border-radius:60% 40% 55% 45%;background:radial-gradient(ellipse at 55% 70%,#fff5b4 0 22%,#ffc554 45%,#ff784f 75%);box-shadow:0 0 22px 8px rgba(255,185,84,.42);transform:translateX(-50%);animation:flick .45s ease-in-out infinite alternate;transition:opacity .25s,transform .25s}
+.final-cake.out .final-flame{opacity:0;transform:translate(-50%,-14px) scale(.5);animation:none}
+.cake-sparkle{position:absolute;color:var(--gold);font-size:1.35rem;text-shadow:0 0 16px rgba(255,217,138,.8);animation:twinkle 1.8s ease-in-out infinite}
+.cake-sparkle.one{top:26px;left:20%}.cake-sparkle.two{top:52px;right:16%;animation-delay:.7s}
+@keyframes cakeFloat{50%{transform:translateY(-8px)}}
+#finalMessage{display:none}
+#finalMessage.show{display:block;animation:rise .8s ease both}
+#finalMessage .big{margin-top:8px}
+.final-hint{margin-top:0!important}
+.final-action{margin-top:22px!important}
 .balloon{position:fixed;bottom:-140px;width:56px;height:70px;border-radius:50% 50% 48% 48%;z-index:3;pointer-events:none;
   animation:up linear forwards}
 .balloon::after{content:"";position:absolute;left:50%;top:100%;width:1px;height:60px;background:rgba(255,255,255,.5)}
 @keyframes up{to{transform:translateY(-130vh) translateX(var(--dx))}}
-.again{background:none;border:1px solid var(--ice);color:var(--ice);margin-top:26px;animation:none}
+.again{background:rgba(255,255,255,.08);border:1px solid rgba(207,227,255,.65);color:var(--ice);margin-top:26px;animation:none}
+.again:hover{background:rgba(255,255,255,.16)}
 .music{position:fixed;top:14px;right:14px;z-index:9;background:rgba(255,255,255,.12);border:0;color:#fff;width:42px;height:42px;border-radius:50%;cursor:pointer;font-size:1.1rem;backdrop-filter:blur(6px)}
+@media(max-width:540px){
+  .stage{padding:30px 24px}
+  .stage::before{inset:14px auto;border-radius:28px}
+  .eyebrow{font-size:.64rem;letter-spacing:.13em}
+  .paper{padding:30px 20px 26px}
+  .paper::before{left:12px}
+  .final-cake{height:190px}
+  .cake-layer{height:62px}
+  .cake-top{bottom:82px}
+  .final-candle{bottom:122px}
+}
 @media (prefers-reduced-motion:reduce){*{animation-duration:.01s!important;animation-iteration-count:1!important;transition:none!important}}
 </style>
 </head>
@@ -106,6 +157,7 @@ button.btn:focus-visible,.cake-wrap:focus-visible,.env:focus-visible{outline:3px
 <!-- 1. Ucapan -->
 <section class="stage on" id="s1">
   <div class="moon" aria-hidden="true"></div>
+  <p class="eyebrow">A little birthday magic</p>
   <h1>Selamat Ulang Tahun!</h1>
   <div class="name" id="who"></div>
   <p class="sub">Ada sesuatu kecil yang sudah disiapkan khusus untukmu hari ini.</p>
@@ -115,6 +167,7 @@ button.btn:focus-visible,.cake-wrap:focus-visible,.env:focus-visible{outline:3px
 <!-- 2. Permohonan -->
 <section class="stage" id="s2">
   <div id="wishBefore">
+    <p class="eyebrow">Make a wish ✨</p>
     <h2 style="margin:auto">Buat satu permohonan, lalu tiup lilinnya</h2>
     <button class="cake-wrap" id="cake" aria-label="Tiup lilin">
       <svg viewBox="0 0 260 230" aria-hidden="true">
@@ -141,6 +194,7 @@ button.btn:focus-visible,.cake-wrap:focus-visible,.env:focus-visible{outline:3px
 <!-- 3. Surat -->
 <section class="stage" id="s3">
   <div id="envWrap">
+    <p class="eyebrow">A note just for you 💌</p>
     <h2 style="margin:auto">Ada surat untukmu</h2>
     <button class="env" id="env" aria-label="Buka amplop">
       <svg viewBox="0 0 300 200" aria-hidden="true">
@@ -168,10 +222,23 @@ button.btn:focus-visible,.cake-wrap:focus-visible,.env:focus-visible{outline:3px
 
 <!-- 4. Penutup -->
 <section class="stage" id="s4">
-  <div class="big">Happy<br>Birthday!</div>
-  <div class="name" id="who2"></div>
-  <p class="sub">Semoga harimu penuh bahagia. Kamu hebat, jangan lupa itu. 💙</p>
-  <button class="btn again" id="again">Ulangi dari awal</button>
+  <p class="eyebrow">Your final birthday surprise ✨</p>
+  <h2 id="finalPrompt">Satu permohonan terakhir...</h2>
+  <button class="final-cake" id="finalCake" aria-label="Tiup lilin kejutan">
+    <span class="cake-sparkle one" aria-hidden="true">✦</span>
+    <span class="cake-sparkle two" aria-hidden="true">✧</span>
+    <span class="cake-top" aria-hidden="true"></span>
+    <span class="cake-layer" aria-hidden="true"></span>
+    <span class="cake-plate" aria-hidden="true"></span>
+    <span class="final-candle" aria-hidden="true"><span class="final-flame"></span></span>
+  </button>
+  <p class="hint final-hint" id="finalHint">Ketuk kuenya untuk meniup lilin 🎂</p>
+  <div id="finalMessage" aria-live="polite">
+    <div class="big">Happy<br>Birthday!</div>
+    <div class="name" id="who2"></div>
+    <p class="sub">Semoga harimu penuh bahagia. Kamu hebat, jangan lupa itu. 💙</p>
+    <button class="btn again" id="again">Ulangi dari awal</button>
+  </div>
 </section>
 
 <button class="music" id="music" aria-label="Musik" title="Musik (opsional)" hidden>♪</button>
@@ -280,6 +347,18 @@ function finale(){
   burst(innerWidth/2, innerHeight*.3, 80, palette);
 }
 $('#again').addEventListener('click', () => location.reload());
+$('#finalCake').addEventListener('click', () => {
+  const cake = $('#finalCake');
+  if(cake.classList.contains('out')) return;
+  cake.classList.add('out');
+  $('#finalPrompt').textContent = 'Semoga semua harapanmu terkabul! 💙';
+  $('#finalHint').textContent = 'Harapan baik sedang menuju kamu...';
+  burst(innerWidth/2, innerHeight*.38, 110, palette);
+  setTimeout(() => burst(innerWidth*.28, innerHeight*.3, 55, palette), 280);
+  setTimeout(() => burst(innerWidth*.72, innerHeight*.32, 55, palette), 560);
+  balloons();
+  setTimeout(() => $('#finalMessage').classList.add('show'), 700);
+});
 
 /* musik opsional */
 if(MUSIC){
