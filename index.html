@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Selamat Ulang Tahun 💙</title>
+<meta name="theme-color" content="#0a1b4d">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,500&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --night:#07133a; --deep:#0f2a7a; --sky:#4f8cff; --ice:#cfe3ff; --foam:#f2f7ff; --gold:#ffd98a;
+  --serif:'Fraunces',Georgia,serif; --hand:'Caveat','Segoe Script',cursive;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family:var(--serif);color:var(--foam);overflow-x:hidden;
+  background:radial-gradient(120% 80% at 50% 0%,#1b43b8 0%,var(--deep) 40%,var(--night) 100%) fixed;
+}
+#stars{position:fixed;inset:0;pointer-events:none;z-index:0}
+#fx{position:fixed;inset:0;pointer-events:none;z-index:5}
+.stage{
+  position:relative;z-index:2;min-height:100vh;min-height:100dvh;display:none;
+  flex-direction:column;align-items:center;justify-content:center;text-align:center;
+  padding:32px 22px;
+}
+.stage.on{display:flex;animation:in .9s ease both}
+@keyframes in{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+
+h1{font-size:clamp(2.4rem,9vw,4.8rem);line-height:1.05;font-weight:700;letter-spacing:-.01em}
+h2{font-size:clamp(1.6rem,6vw,2.6rem);line-height:1.2;font-weight:500;max-width:18ch}
+.name{font-family:var(--hand);font-size:clamp(2.4rem,10vw,4.4rem);color:var(--gold);margin-top:10px}
+p.sub{margin-top:18px;max-width:34ch;font-size:1.1rem;line-height:1.6;color:var(--ice)}
+
+button.btn{
+  margin-top:34px;font:inherit;font-size:1.05rem;font-weight:500;color:var(--night);
+  background:var(--foam);border:0;border-radius:999px;padding:14px 30px;cursor:pointer;
+  box-shadow:0 0 0 0 rgba(207,227,255,.6);animation:pulse 2.4s infinite;transition:transform .2s;
+}
+button.btn:hover{transform:scale(1.05)}
+button.btn:focus-visible,.cake-wrap:focus-visible,.env:focus-visible{outline:3px solid var(--gold);outline-offset:4px}
+@keyframes pulse{70%{box-shadow:0 0 0 16px rgba(207,227,255,0)}100%{box-shadow:0 0 0 0 rgba(207,227,255,0)}}
+
+/* hello */
+.moon{width:92px;height:92px;border-radius:50%;margin-bottom:26px;
+  background:radial-gradient(circle at 35% 35%,#fff,#cfe3ff 60%,#8db6ff);
+  box-shadow:0 0 60px 12px rgba(120,170,255,.55);animation:float 5s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-12px)}}
+
+/* wish */
+.cake-wrap{background:none;border:0;cursor:pointer;margin:26px 0 8px;color:inherit}
+.cake-wrap svg{width:min(260px,70vw);height:auto;overflow:visible}
+.flame{transform-origin:50% 100%;animation:flick .5s ease-in-out infinite alternate}
+@keyframes flick{from{transform:scale(1,1) rotate(-3deg)}to{transform:scale(.9,1.12) rotate(3deg)}}
+.out .flame{animation:none;opacity:0;transition:opacity .3s}
+.smoke{opacity:0}
+.out .smoke{animation:smoke 2.2s ease-out forwards}
+@keyframes smoke{0%{opacity:.7;transform:translateY(0)}100%{opacity:0;transform:translateY(-46px) scaleX(1.6)}}
+.hint{font-size:.95rem;color:var(--ice);opacity:.85;animation:blink 2s infinite}
+@keyframes blink{50%{opacity:.35}}
+#wishAfter{display:none}
+#wishAfter.show{display:block;animation:in 1s ease both}
+#wishBefore.gone{display:none}
+
+/* letter */
+.env{background:none;border:0;cursor:pointer;color:inherit;position:relative;width:min(300px,78vw);margin-top:20px}
+.env svg{width:100%;height:auto;filter:drop-shadow(0 18px 30px rgba(0,0,0,.4))}
+.env .flap{transform-origin:150px 60px;transition:transform .8s ease}
+.opened .flap{transform:rotateX(180deg)}
+#paperWrap{display:none;width:min(560px,100%)}
+#paperWrap.show{display:block;animation:rise 1s ease both}
+@keyframes rise{from{opacity:0;transform:translateY(60px) scale(.94)}to{opacity:1;transform:none}}
+.paper{
+  background:linear-gradient(#f9fcff,#e8f1ff);color:#14275e;border-radius:6px;padding:34px 28px 30px;text-align:left;
+  box-shadow:0 24px 60px rgba(0,0,0,.45);position:relative;
+  background-image:repeating-linear-gradient(transparent 0 35px,rgba(79,140,255,.18) 35px 36px);
+}
+.paper::before{content:"";position:absolute;left:18px;top:0;bottom:0;width:2px;background:rgba(255,120,140,.35)}
+.paper p{font-family:var(--hand);font-size:clamp(1.35rem,4.6vw,1.65rem);line-height:36px;margin-left:16px;opacity:0;animation:line .8s ease forwards}
+.paper p.to{font-weight:700;font-size:1.9rem}
+.paper p.sign{text-align:right;font-weight:700;color:#2a55c9}
+@keyframes line{to{opacity:1}}
+.paper p+p{margin-top:36px}
+#finalBtn{display:none}
+#finalBtn.show{display:inline-block}
+
+/* finale */
+.big{font-family:var(--hand);font-size:clamp(3.2rem,16vw,7rem);line-height:1;color:var(--foam);
+  text-shadow:0 0 28px rgba(79,140,255,.9),0 0 60px rgba(79,140,255,.6);animation:glow 3s ease-in-out infinite alternate}
+@keyframes glow{from{text-shadow:0 0 18px rgba(79,140,255,.7)}to{text-shadow:0 0 40px rgba(130,180,255,1),0 0 90px rgba(79,140,255,.8)}}
+.balloon{position:fixed;bottom:-140px;width:56px;height:70px;border-radius:50% 50% 48% 48%;z-index:3;pointer-events:none;
+  animation:up linear forwards}
+.balloon::after{content:"";position:absolute;left:50%;top:100%;width:1px;height:60px;background:rgba(255,255,255,.5)}
+@keyframes up{to{transform:translateY(-130vh) translateX(var(--dx))}}
+.again{background:none;border:1px solid var(--ice);color:var(--ice);margin-top:26px;animation:none}
+.music{position:fixed;top:14px;right:14px;z-index:9;background:rgba(255,255,255,.12);border:0;color:#fff;width:42px;height:42px;border-radius:50%;cursor:pointer;font-size:1.1rem;backdrop-filter:blur(6px)}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01s!important;animation-iteration-count:1!important;transition:none!important}}
+</style>
+</head>
+<body>
+<canvas id="stars"></canvas>
+<canvas id="fx"></canvas>
+
+<!-- 1. Ucapan -->
+<section class="stage on" id="s1">
+  <div class="moon" aria-hidden="true"></div>
+  <h1>Selamat Ulang Tahun!</h1>
+  <div class="name" id="who"></div>
+  <p class="sub">Ada sesuatu kecil yang sudah disiapkan khusus untukmu hari ini.</p>
+  <button class="btn" data-go="s2">Mulai</button>
+</section>
+
+<!-- 2. Permohonan -->
+<section class="stage" id="s2">
+  <div id="wishBefore">
+    <h2 style="margin:auto">Buat satu permohonan, lalu tiup lilinnya</h2>
+    <button class="cake-wrap" id="cake" aria-label="Tiup lilin">
+      <svg viewBox="0 0 260 230" aria-hidden="true">
+        <ellipse cx="130" cy="214" rx="120" ry="12" fill="#000" opacity=".25"/>
+        <rect x="30" y="140" width="200" height="70" rx="14" fill="#cfe3ff"/>
+        <path d="M30 156c20 14 30-6 50 6s30-8 50 6 30-10 50 4 30-8 50 2v-24H30z" fill="#4f8cff"/>
+        <rect x="55" y="92" width="150" height="56" rx="12" fill="#f2f7ff"/>
+        <path d="M55 110c18 14 28-6 46 6s28-8 46 6 28-10 46 4 12 0 12 0V104H55z" fill="#7aa8ff"/>
+        <g fill="#ffd98a"><circle cx="90" cy="188" r="4"/><circle cx="130" cy="184" r="4"/><circle cx="170" cy="188" r="4"/></g>
+        <rect x="124" y="56" width="12" height="40" rx="3" fill="#0f2a7a"/>
+        <path class="smoke" d="M130 50c-8-10 8-16 0-28" stroke="#cfe3ff" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <g class="flame"><path d="M130 22c12 14 14 22 0 32-14-10-12-18 0-32z" fill="#ffb347"/><path d="M130 34c6 8 7 12 0 18-7-6-6-10 0-18z" fill="#fff3c4"/></g>
+      </svg>
+    </button>
+    <p class="hint">Ketuk kuenya untuk meniup lilin</p>
+  </div>
+  <div id="wishAfter">
+    <h2 style="margin:auto;max-width:22ch">Semoga apa yang kamu harapkan akan menjadi kenyataan.</h2>
+    <p class="sub" style="margin:18px auto 0">Tetap semangat, dan jangan lupa untuk tetap bahagia.</p>
+    <button class="btn" data-go="s3">Buka surat untukmu 💌</button>
+  </div>
+</section>
+
+<!-- 3. Surat -->
+<section class="stage" id="s3">
+  <div id="envWrap">
+    <h2 style="margin:auto">Ada surat untukmu</h2>
+    <button class="env" id="env" aria-label="Buka amplop">
+      <svg viewBox="0 0 300 200" aria-hidden="true">
+        <rect x="6" y="40" width="288" height="154" rx="10" fill="#9ec1ff"/>
+        <path d="M6 190 150 110 294 190z" fill="#7aa8ff"/>
+        <path class="flap" d="M6 46 150 140 294 46z" fill="#cfe3ff" style="transform-box:fill-box"/>
+        <circle cx="150" cy="120" r="14" fill="#ffd98a"/><text x="150" y="126" text-anchor="middle" font-size="16" fill="#0f2a7a">♥</text>
+      </svg>
+    </button>
+    <p class="hint" style="margin-top:12px">Ketuk amplopnya</p>
+  </div>
+  <div id="paperWrap">
+    <div class="paper" id="paper">
+      <p class="to" style="animation-delay:.3s">Untuk kamu,</p>
+      <p style="animation-delay:1.3s">Haiii, happy birthday yahh! 🎂 Semoga di ulang tahunmu yang sekarang, kamu selalu dikelilingi oleh hal-hal baik dan orang-orang yang tulus menyayangimu.</p>
+      <p style="animation-delay:3s">Semangat terus ya skripsinya. Pelan-pelan juga nggak apa-apa, yang penting kamu nggak berhenti. Satu halaman hari ini tetap kemajuan. Semoga dosen dan revisinya baik hati, dan semoga semuanya dilancarkan sampai kamu bisa pakai toga. 🎓</p>
+      <p style="animation-delay:5s">Jangan lupa sholat, jangan lupa makan, dan istirahat yang cukup ya. Kamu itu berharga, jadi tubuh dan hatimu juga perlu dijaga.</p>
+      <p style="animation-delay:7s">Terima kasih juga ya, karena sudah mau bertahan sejauh ini. Di hari-hari yang berat, kamu tetap jalan, dan aku bangga sama kamu. 💙</p>
+      <p style="animation-delay:9s">Semoga tahun ini lebih baik dari yang kemarin, dan semoga bahagia selalu menemukan jalan ke kamu.</p>
+      <p class="sign" style="animation-delay:10.5s">Dengan sayang, 💙</p>
+    </div>
+    <button class="btn" id="finalBtn" data-go="s4">Satu kejutan lagi ✨</button>
+  </div>
+</section>
+
+<!-- 4. Penutup -->
+<section class="stage" id="s4">
+  <div class="big">Happy<br>Birthday!</div>
+  <div class="name" id="who2"></div>
+  <p class="sub">Semoga harimu penuh bahagia. Kamu hebat, jangan lupa itu. 💙</p>
+  <button class="btn again" id="again">Ulangi dari awal</button>
+</section>
+
+<button class="music" id="music" aria-label="Musik" title="Musik (opsional)" hidden>♪</button>
+
+<script>
+/* ====== UBAH DI SINI ====== */
+const NAME = "";                 // isi nama temanmu, contoh: "Rina". Kosongkan jika tidak mau.
+const MUSIC = "";                // opsional: nama file musik, contoh "lagu.mp3" (taruh di folder yang sama)
+/* ========================== */
+
+const $ = s => document.querySelector(s);
+document.getElementById('who').textContent = NAME;
+document.getElementById('who2').textContent = NAME;
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* bintang */
+const sc = $('#stars'), sx = sc.getContext('2d'); let stars = [];
+function sizeStars(){
+  sc.width = innerWidth; sc.height = innerHeight;
+  stars = Array.from({length: Math.round(innerWidth*innerHeight/9000)}, () => ({
+    x:Math.random()*sc.width, y:Math.random()*sc.height, r:Math.random()*1.5+.3, p:Math.random()*6.28, s:Math.random()*.02+.005
+  }));
+}
+function drawStars(t){
+  sx.clearRect(0,0,sc.width,sc.height);
+  for(const s of stars){
+    sx.globalAlpha = .35 + .65*Math.abs(Math.sin(s.p + t*s.s*.1));
+    sx.fillStyle = '#dbe8ff'; sx.beginPath(); sx.arc(s.x,s.y,s.r,0,6.28); sx.fill();
+  }
+  if(!reduce) requestAnimationFrame(drawStars);
+}
+addEventListener('resize', sizeStars); sizeStars(); requestAnimationFrame(drawStars);
+
+/* pindah halaman */
+function go(id){
+  document.querySelectorAll('.stage').forEach(e => e.classList.remove('on'));
+  $('#'+id).classList.add('on'); scrollTo(0,0);
+  if(id==='s4') finale();
+}
+document.querySelectorAll('[data-go]').forEach(b => b.addEventListener('click', () => go(b.dataset.go)));
+
+/* tiup lilin */
+let blown = false;
+$('#cake').addEventListener('click', () => {
+  if(blown) return; blown = true;
+  $('#cake').classList.add('out');
+  $('#cake').querySelector('svg').parentElement.classList.add('out');
+  burst(innerWidth/2, innerHeight*.4, 36, ['#cfe3ff','#4f8cff','#ffd98a']);
+  setTimeout(() => {
+    $('#wishBefore').classList.add('gone');
+    $('#wishAfter').classList.add('show');
+  }, 1700);
+});
+
+/* buka surat */
+$('#env').addEventListener('click', () => {
+  $('#env').classList.add('opened');
+  setTimeout(() => {
+    $('#envWrap').style.display = 'none';
+    $('#paperWrap').classList.add('show');
+  }, 900);
+  setTimeout(() => $('#finalBtn').classList.add('show'), 12500);
+});
+
+/* kembang api */
+const fc = $('#fx'), fx = fc.getContext('2d'); let parts = [], running = false, timer;
+function sizeFx(){ fc.width = innerWidth; fc.height = innerHeight; }
+addEventListener('resize', sizeFx); sizeFx();
+function burst(x,y,n,cols){
+  for(let i=0;i<n;i++){
+    const a = Math.random()*6.28, v = Math.random()*5+1.5;
+    parts.push({x,y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,life:1,c:cols[i%cols.length]});
+  }
+  if(!running){ running = true; loop(); }
+}
+function loop(){
+  fx.clearRect(0,0,fc.width,fc.height);
+  parts = parts.filter(p => p.life > 0);
+  for(const p of parts){
+    p.x += p.vx; p.y += p.vy; p.vy += .05; p.vx *= .985; p.life -= .014;
+    fx.globalAlpha = Math.max(p.life,0); fx.fillStyle = p.c;
+    fx.beginPath(); fx.arc(p.x,p.y,2.4,0,6.28); fx.fill();
+  }
+  if(parts.length) requestAnimationFrame(loop); else { running = false; fx.clearRect(0,0,fc.width,fc.height); }
+}
+const palette = ['#4f8cff','#cfe3ff','#ffd98a','#8db6ff','#ffffff'];
+function balloons(){
+  const cols = ['#4f8cff','#7aa8ff','#cfe3ff','#2f63e0','#ffd98a'];
+  for(let i=0;i<16;i++){
+    const b = document.createElement('div'); b.className = 'balloon';
+    b.style.left = Math.random()*95 + 'vw';
+    b.style.background = `radial-gradient(circle at 30% 30%,#fff8,${cols[i%cols.length]})`;
+    b.style.setProperty('--dx', (Math.random()*80-40)+'px');
+    b.style.animationDuration = (8+Math.random()*7)+'s';
+    b.style.animationDelay = (Math.random()*4)+'s';
+    document.body.appendChild(b); setTimeout(()=>b.remove(), 20000);
+  }
+}
+function finale(){
+  balloons();
+  let n = 0; clearInterval(timer);
+  timer = setInterval(() => {
+    burst(Math.random()*innerWidth*.8+innerWidth*.1, Math.random()*innerHeight*.45+40, 46, palette);
+    if(++n > 40) clearInterval(timer);
+  }, 700);
+  burst(innerWidth/2, innerHeight*.3, 80, palette);
+}
+$('#again').addEventListener('click', () => location.reload());
+
+/* musik opsional */
+if(MUSIC){
+  const au = new Audio(MUSIC); au.loop = true; const mb = $('#music'); mb.hidden = false;
+  mb.addEventListener('click', () => { au.paused ? au.play() : au.pause(); });
+}
+</script>
+</body>
+</html>
